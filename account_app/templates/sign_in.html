@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daxil ol|Helpdesk</title>
+
+    <!-- login page styling -->
+    <link rel="stylesheet" href="{% static 'css/sign_in.css' %}">
+
+    <!-- favicon -->
+    <!-- <link rel="icon" type="image/png" href={% static 'images/favicon.ico' %}> -->
+</head>
+
+<body>
+    <div class="sign-in-body">
+        <main class="sign-in-content">
+            <div class="sign-in-header">
+                <h1 style="color: white;">Salam, Aytişnik !</h1>
+            </div>
+            <section class="sign-in-form-container">
+                <form class="sign-in-form" method='POST'>
+                    {% csrf_token %}
+                    <div>
+                        <label for="username">İstifadəçi adı</label><br>
+                        <input type="text" name="username">
+                    </div>
+                    <div>
+                        <label for="user-password">Şifrə</label><br>
+                        <input type="password" name="password">
+                    </div>
+                    <div>
+                        <input type="submit" value="Daxil ol" class="sign-in-btn">
+                    </div>
+                    {% for message in messages %}
+                    <p style="color: white; font-size: 1.3em; font-weight: bold;">{{message}}</p>
+                    {% endfor %}
+                </form>
+            </section>
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="{% url 'index' %}">Aytişnik kimi daxil olmaq istəmirəm !</a>
+            </div>
+        </main>
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block task %}
+<div class="container">
+    <div class="row mt-3 mb-3">
+        <h6>İmtina edilib <span class="badge bg-danger">qırmızı</span></h6>
+        <h6>Gözləmədədir <span class="badge bg-warning">sarı</span></h6>
+        <h6>İcra edilib <span class="badge bg-success">yaşıl</span></h6>
+    </div>
+
+    <table class="table table-responsive table-dark table-bordered table-striped">
+        <thead class="thead thead-dark">
+            <tr>
+                <th>Müraciətin nömrəsi</th>
+                <th>Müraciətin tarixi</th>
+                <th>İcra edilmə tarixi</th>
+                <th>Departament</th>
+                <th>İşçi</th>
+                <th>Müraciətin səbəbi</th>
+                <th>Müraciət mətni</th>
+                <th>İcraçı</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+                {% if task.task_status == 'Gözləmədədir' %}
+                <tr class="table-warning">
+                    <td>{{ task.id }}</td>
+                    <td>{{ task.task_created_date }}</td>
+                    <td> - </td>
+                    <td>{{ task.client_department }}</td>
+                    <td>{{ task.client_name }}</td>
+                    <td>{{ task.task_title }}</td>
+                    <td>{{ task.task_content }}</td>
+                    <td> - </td>
+                </tr>
+
+                {% elif task.task_status == 'İmtina edilib' %}
+                <tr class="table-danger">
+                    <td>{{ task.id }}</td>
+                    <td>{{ task.task_created_date }}</td>
+                    <td> - </td>
+                    <td>{{ task.client_department }}</td>
+                    <td>{{ task.client_name }}</td>
+                    <td>{{ task.task_title }}</td>
+                    <td>{{ task.task_content }}</td>
+                    <td> - </td>
+                </tr>
+
+                {% else %}
+                <tr class="table-success">
+                    <td>{{ task.id }}</td>
+                    <td>{{ task.task_created_date }}</td>
+                    <td>{{ task.task_completed_date }}</td>
+                    <td>{{ task.client_department }}</td>
+                    <td>{{ task.client_name }}</td>
+                    <td>{{ task.task_title }}</td>
+                    <td>{{ task.task_content }}</td>
+                    <td><a href="tel: {{ task.task_done_by.phone_number }}">{{ task.task_done_by }}</a></td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

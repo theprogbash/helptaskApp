@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block index %}
+<div class="container">
+    {% if request.user.username == 'ramil' %}
+    <div class="m-auto text-center mt-5" style="width: 50%">
+        <h2>Salam, Ramil !</h2><br>
+        <h2>Əməkdaşların sənə ehtiyaci var !</h2>
+        <img src="{% static 'images/ramilman.jpeg' %}">
+    </div>
+    {% endif %}
+
+    {% if request.user.username == 'anar' %}
+    <div class="m-auto text-center mt-5" style="width: 50%">
+        <h2>Salam, Anar !</h2><br>
+        <h2>Əməkdaşların sənə ehtiyaci var !</h2>
+        <img width="50%" src="static/images/anarman.jpg"><br>
+    </div>
+    {% endif %}
+
+    {% if not request.user.is_authenticated or request.user.username == 'admin' %}
+    {% if messages %}
+        {% for message in messages %}
+        <p style="color: red; text-align: center; padding-top: 30px" {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </p>
+        {% endfor %}
+    {% endif %}
+    <div class="help-me-form-container m-auto mt-3" style="width: 60%">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label">Departament</label><br>
+                {{ form.client_department }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Departamentin işçisi</label><br>
+                {{ form.client_name }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Müraciətin səbəbi</label><br>
+                {{ form.task_title }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Müraciət mətni</label><br>
+                {{ form.task_content }}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Çağır, gəlsin</button>
+            <button type="reset" class="btn btn-danger">Sil, getsin</button>
+        </form>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
