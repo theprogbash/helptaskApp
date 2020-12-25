@@ -25,7 +25,11 @@
             {% for task in tasks %}
                 {% if task.task_status == 'Gözləmədədir' %}
                 <tr class="table-warning">
+                    {% if request.user.is_authenticated %}
+                    <td><a href="dashboard/helpdesk_app/task/{{ task.id }}/change/">{{ task.id }}</a></td>
+                    {% else %}
                     <td>{{ task.id }}</td>
+                    {% endif %}
                     <td>{{ task.task_created_date }}</td>
                     <td> - </td>
                     <td>{{ task.client_department }}</td>
@@ -37,7 +41,11 @@
 
                 {% elif task.task_status == 'İmtina edilib' %}
                 <tr class="table-danger">
+                    {% if request.user.is_authenticated %}
+                    <td><a href="dashboard/helpdesk_app/task/{{ task.id }}/change/">{{ task.id }}</a></td>
+                    {% else %}
                     <td>{{ task.id }}</td>
+                    {% endif %}
                     <td>{{ task.task_created_date }}</td>
                     <td> - </td>
                     <td>{{ task.client_department }}</td>
@@ -49,7 +57,11 @@
 
                 {% else %}
                 <tr class="table-success">
+                    {% if request.user.is_authenticated %}
+                    <td><a href="dashboard/helpdesk_app/task/{{ task.id }}/change/">{{ task.id }}</a></td>
+                    {% else %}
                     <td>{{ task.id }}</td>
+                    {% endif %}
                     <td>{{ task.task_created_date }}</td>
                     <td>{{ task.task_completed_date }}</td>
                     <td>{{ task.client_department }}</td>
